@@ -21,7 +21,7 @@ public class Newbie implements ISpecialEffect {
             ItemStack blade = event.blade;
             NBTTagCompound tag = blade.getTagCompound();
             if (tag != null && tag.hasKey("SB.SEffect") && tag.getCompoundTag("SB.SEffect").hasKey("Newbie")) {
-                player.sendMessage(new TextComponentString("held"));
+                player.sendMessage(new TextComponentString("held from SE"));
             }
         }
     }

@@ -1,6 +1,8 @@
 package world.maryt.exuslashblade;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import world.maryt.exuslashblade.events.NewbieEffect;
 import world.maryt.exuslashblade.se.SELoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,7 +17,9 @@ public class CommonProxy {
 	}
 
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) {}
+	public void init(FMLInitializationEvent event) {
+		MinecraftForge.EVENT_BUS.register(new NewbieEffect());
+	}
 
     public void postInit(FMLPostInitializationEvent event) {}
 }
