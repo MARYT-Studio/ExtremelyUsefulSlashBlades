@@ -77,4 +77,6 @@ dependencies {
     runtimeOnly rfg.deobf('curse.maven:torohealth-damage-indicators-245733:2483817')
     runtimeOnly rfg.deobf('curse.maven:ftb-utilities-forge-237102:3157548')
     runtimeOnly rfg.deobf('curse.maven:ftb-library-legacy-forge-237167:2985811')
+    runtimeOnly rfg.deobf('curse.maven:armorpoints-396094:4879882')
+    runtimeOnly rfg.deobf('curse.maven:giselbaers-durability-viewer-262146:2851556')
 }

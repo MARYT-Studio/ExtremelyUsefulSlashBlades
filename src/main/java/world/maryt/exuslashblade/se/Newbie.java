@@ -2,6 +2,7 @@ package world.maryt.exuslashblade.se;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import mods.flammpfeil.slashblade.ItemSlashBladeNamed;
 import mods.flammpfeil.slashblade.specialeffect.ISpecialEffect;
 import mods.flammpfeil.slashblade.util.SlashBladeEvent;
 import mods.flammpfeil.slashblade.util.SlashBladeHooks;
@@ -12,7 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import world.maryt.exuslashblade.blade.BladeFreshBrave;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import static world.maryt.exuslashblade.ExtremelyUsefulSlashBlades.LOGGER;
@@ -29,16 +32,27 @@ public class Newbie implements ISpecialEffect {
     }
 
     @SubscribeEvent
-    public void onUpdateItemSlashBlade(SlashBladeEvent.OnUpdateEvent event) {
+    public void applyEffect(SlashBladeEvent.OnUpdateEvent event) {
         if (event.isCurrent && event.entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.entity;
             ItemStack blade = event.blade;
             NBTTagCompound tag = blade.getTagCompound();
             if (tag != null && tag.hasKey("SB.SEffect") && tag.getCompoundTag("SB.SEffect").hasKey("Newbie")) {
-                LOGGER.info("apply");
                 player.getAttributeMap().applyAttributeModifiers(getAttributeModifiers());
             }
         }
+    }
+
+    @SubscribeEvent
+    public void reduceMaxDamage(SlashBladeEvent.OnUpdateEvent event) {
+        ItemStack blade = event.blade;
+        NBTTagCompound tag = blade.getTagCompound();
+        if (!(Objects.equals(ItemSlashBladeNamed.CurrentItemName.get(tag), BladeFreshBrave.name))) return;
+
+        int damage = blade.getItemDamage();
+        ItemSlashBladeNamed.CustomMaxDamage.add(tag, -damage);
+        blade.setItemDamage(0);
+        LOGGER.info("damage: {}, CustomMaxDamage: {}", damage, ItemSlashBladeNamed.CustomMaxDamage.get(tag));
     }
 
 

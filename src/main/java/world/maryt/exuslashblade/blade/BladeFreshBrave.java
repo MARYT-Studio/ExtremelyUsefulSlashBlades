@@ -10,18 +10,23 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import world.maryt.exuslashblade.se.SELoader;
 
-public class BladeFreshBrave {
+public class BladeFreshBrave extends ItemSlashBladeNamed {
 	public static final String name = "flammpfeil.slashblade.named.newbie";
 
-	@SubscribeEvent
-	public void InitKatana(InitEvent event){
+    public BladeFreshBrave(ToolMaterial par2EnumToolMaterial, float baseAttackModifiers) {
+        super(par2EnumToolMaterial, baseAttackModifiers);
+    }
+
+    @SubscribeEvent
+	public void init(InitEvent event){
 	     ItemStack customblade = new ItemStack(SlashBlade.bladeNamed,1,0);
 	        NBTTagCompound tag = new NBTTagCompound();
 	        customblade.setTagCompound(tag);
 	        ItemSlashBladeNamed.IsDefaultBewitched.set(tag, false);
 			ItemSlashBladeNamed.CustomMaxDamage.set(tag, 300);
 	        ItemSlashBladeNamed.CurrentItemName.set(tag, name);
-	        ItemSlashBlade.TextureName.set(tag, "named/newbie/texture");
+            ItemSlashBlade.BaseAttackModifier.set(tag, 6.0f);
+            ItemSlashBlade.TextureName.set(tag, "named/newbie/texture");
 	        ItemSlashBlade.ModelName.set(tag, "named/newbie/model");
 			ItemSlashBlade.StandbyRenderType.set(tag, 1);
 
@@ -30,4 +35,5 @@ public class BladeFreshBrave {
 	        SlashBlade.registerCustomItemStack(name, customblade);
 	        ItemSlashBladeNamed.NamedBlades.add(name);
 	}
+
 }
